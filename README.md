@@ -2,21 +2,44 @@
 A php API to track Colissimo (La Poste) parcels
 
 ## Installation
+##### With composer
+```bash
+composer require hedii/colissimo-api
+```
 
+##### With git clone
 ```bash
 git clone https://github.com/hedii/ColissimoApi.git
 ```
 
 ## Usage
+##### With composer
 ```php
 <?php
 use ColissimoApi\ColissimoApi;
 
+require __DIR__ . '/vendor/autoload.php';
+
 header('Content-Type: application/json');
-require 'ColissimoApi/ColissimoApi.php';
 $colissimoApi = new ColissimoApi();
 $colissimoApi->run();
 ```
+
+##### With git clone
+```php
+<?php
+use ColissimoApi\ColissimoApi;
+
+require 'ColissimoApi/ColissimoApi.php';
+
+header('Content-Type: application/json');
+$colissimoApi = new ColissimoApi();
+$colissimoApi->run();
+```
+
+##### With both
+Create a ```temp/``` folder that will be used to store colissimo pages.
+
 Go to ht&#8203;tp://</span>example.com/?id={{here a valid colissimo id}}
 
 It should return json encoded data like this:
