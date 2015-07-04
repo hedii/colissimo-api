@@ -9,7 +9,7 @@ composer require hedii/colissimo-api
 
 ##### With git clone
 ```bash
-git clone https://github.com/hedii/ColissimoApi.git
+git clone https://github.com/hedii/colissimo-api.git
 ```
 
 ## Usage
