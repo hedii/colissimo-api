@@ -80,7 +80,7 @@ class ColissimoApi {
      */
     private function storeTable($data)
     {
-        $table = '<!DOCTYPE html><html><head><meta charset="utf-8"></head><body><table>' . $this->get_string_between($data, '<table class="dataArray" summary="Suivi de votre colis" width="100%">', '</table>') . '</table></body></html>';
+        $table = '<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title></title></head><body><table>' . $this->get_string_between($data, '<table class="dataArray" summary="Suivi de votre colis" width="100%">', '</table>') . '</table></body></html>';
         $unique_id = uniqid();
         $filePath = 'temp/' . $unique_id . '.html';
         $file = file_put_contents('temp/' . $unique_id . '.html', $table);
@@ -103,8 +103,9 @@ class ColissimoApi {
      */
     private function parse($url)
     {
+	    $url = file_get_contents($url);
         $dom = new DOMDocument();
-        $html = $dom->loadHTMLFile($url);
+        @$html = $dom->loadHTML(mb_convert_encoding($url, 'HTML-ENTITIES', 'UTF-8'));
         $dom->preserveWhiteSpace = false;
         $tables = $dom->getElementsByTagName('table');
         $rows = $tables->item(0)->getElementsByTagName('tr');
