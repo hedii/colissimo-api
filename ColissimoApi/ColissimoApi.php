@@ -103,7 +103,7 @@ class ColissimoApi {
      */
     private function parse($url)
     {
-	    $url = file_get_contents($url);
+		$url = file_get_contents($url);
         $dom = new DOMDocument();
         @$html = $dom->loadHTML(mb_convert_encoding($url, 'HTML-ENTITIES', 'UTF-8'));
         $dom->preserveWhiteSpace = false;
