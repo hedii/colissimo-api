@@ -95,17 +95,17 @@ class ColissimoApi {
     }
 
     /**
-     * parse html table in the created file $url to a multidimensional array
+     * parse html table in the created file $filePath to a multidimensional array
      *
      * @source http://stackoverflow.com/a/10754009/2746369
-     * @param $url
+     * @param $filePath
      * @return array
      */
-    private function parse($url)
+    private function parse($filePath)
     {
-		$url = file_get_contents($url);
+		$content = file_get_contents($filePath);
         $dom = new DOMDocument();
-        @$html = $dom->loadHTML(mb_convert_encoding($url, 'HTML-ENTITIES', 'UTF-8'));
+        @$html = $dom->loadHTML(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
         $dom->preserveWhiteSpace = false;
         $tables = $dom->getElementsByTagName('table');
         $rows = $tables->item(0)->getElementsByTagName('tr');
