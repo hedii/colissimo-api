@@ -81,12 +81,9 @@ class ColissimoApi {
     private function storeTable($data)
     {
         $table = '<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title></title></head><body><table>' . $this->get_string_between($data, '<table class="dataArray" summary="Suivi de votre colis" width="100%">', '</table>') . '</table></body></html>';
-        //$table = mb_convert_encoding($table, 'UTF-8', 'OLD-ENCODING');
-        $table = utf8_encode($table);
-        //var_dump($table); die;
         $unique_id = uniqid();
         $filePath = 'temp/' . $unique_id . '.html';
-        $file = file_put_contents($filePath, $table);
+        $file = file_put_contents('temp/' . $unique_id . '.html', $table);
 
         // if $file is under 600, there is something wrong, stop everything
         if ($file < 600) {
@@ -107,8 +104,6 @@ class ColissimoApi {
     private function parse($filePath)
     {
 		$content = file_get_contents($filePath);
-        //var_dump($content);
-        //die();
         $dom = new DOMDocument();
         @$html = $dom->loadHTML(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
         $dom->preserveWhiteSpace = false;
