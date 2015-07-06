@@ -1,5 +1,7 @@
 # ColissimoApi
-A php API to track Colissimo (La Poste) parcels
+A php API to track Colissimo (La Poste) parcels.
+
+**Demo**: http://hedichaibi.com/colissimo-api/?id= *(fill the url with a valid colissimo id)*
 
 ## Installation
 ##### With composer
