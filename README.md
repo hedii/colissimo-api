@@ -20,10 +20,11 @@ use ColissimoApi\ColissimoApi;
 
 require __DIR__ . '/vendor/autoload.php';
 
-header('Content-Type: application/json');
+header('Content-Type: application/json; charset=utf-8');
 $colissimoApi = new ColissimoApi();
 $colissimoApi->run();
 ```
+Create a ```temp/``` folder that will be used to store colissimo pages and give it read/write permission.
 
 ##### With git clone
 ```php
@@ -32,14 +33,14 @@ use ColissimoApi\ColissimoApi;
 
 require 'ColissimoApi/ColissimoApi.php';
 
-header('Content-Type: application/json');
+header('Content-Type: application/json; charset=utf-8');
 $colissimoApi = new ColissimoApi();
 $colissimoApi->run();
 ```
 
-##### With both
-Create a ```temp/``` folder that will be used to store colissimo pages.
+Give read/write permission to the ```temp/``` folder.
 
+##### With both
 Go to ht&#8203;tp://</span>example.com/?id={{here a valid colissimo id}}
 
 It should return json encoded data like this:
