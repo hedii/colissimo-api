@@ -24,6 +24,12 @@ class ColissimoApi {
             die();
         }
 
+        // we want only alphanumeric characters for $_GET['id']
+        if (ctype_alnum($_GET['id']) !== true) {
+            echo 'Please fill a valid Colissimo id in your url.';
+            die();
+        }
+
         // get the colissimo id from the url
         $this->id = $_GET['id'];
     }
