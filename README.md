@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/hedii/colissimo-api.svg?branch=master)](https://travis-ci.org/hedii/colissimo-api)
 # ColissimoApi
 A php API to track Colissimo (La Poste) parcels.
 
