@@ -3,6 +3,7 @@
     "minimum-stability": "stable",
     "description": "A php API to track Colissimo (La Poste) parcels",
     "keywords": ["colissimo", "api", "colissimoapi", "hedii"],
+    "license": "MIT",
     "homepage": "https://github.com/hedii/colissimo-api",
     "authors": [
         {
