@@ -33,8 +33,8 @@ $colissimoApi->show('9V01144112123')->destination();
 ````
 
 ### Run tests
-You may need to update the id in */tests/ColissimoApiTest.php* because the id is only valid for 90 days.
 
 ````bash
-composer require hedii/colissimo-api
+vendor/bin/phpunit tests
 ````
+You may need to update the id in */tests/ColissimoApiTest.php* because the id is only valid for 90 days.
