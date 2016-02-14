@@ -1,0 +1,31 @@
+{
+    "name": "hedii/colissimo-api",
+    "minimum-stability": "stable",
+    "description": "A php API to track Colissimo (La Poste) parcels",
+    "keywords": ["colissimo", "api", "colissimoapi", "hedii"],
+    "homepage": "https://github.com/hedii/colissimo-api",
+    "authors": [
+        {
+            "name": "Hedi Chaibi",
+            "email": "hedi.chaibs@gmail.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/hedii/colissimo-api/issues",
+        "source": "https://github.com/hedii/colissimo-api",
+        "email": "hedi.chaibs@gmail.com"
+    },
+    "require": {
+        "symfony/dom-crawler": "^3.0",
+        "symfony/css-selector": "^3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "5.0.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Hedii\\": "src/",
+            "Hedii\\ColissimoApi\\": "src/ColissimoApi"
+        }
+    }
+}
