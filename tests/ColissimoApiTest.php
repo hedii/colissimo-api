@@ -4,7 +4,7 @@ use Hedii\ColissimoApi\ColissimoApi;
 
 class ColissimoApiTest extends PHPUnit_Framework_TestCase
 {
-    private $id = '9V01144112123';
+    private $id = '9V01144114240';
 
     private $wrongId = 'x9V01144112123';
 
