@@ -15,7 +15,7 @@ composer require hedii/colissimo-api
 require 'vendor/autoload.php';
 
 // create a new instance
-$colissimoApi = new ColissimoApi();
+$colissimoApi = new \Hedii\ColissimoApi();
 
 // get data
 $all         = $colissimoApi->get('9V01144112123')->all();
