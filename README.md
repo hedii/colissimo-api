@@ -18,17 +18,17 @@ require 'vendor/autoload.php';
 $colissimoApi = new \Hedii\ColissimoApi();
 
 // get data
-$all         = $colissimoApi->get('9V01144112123')->all();
-$status      = $colissimoApi->get('9V01144112123')->status();
-$id          = $colissimoApi->get('9V01144112123')->id();
-$destination = $colissimoApi->get('9V01144112123')->destination();
+$all         = $colissimoApi->get('9V01144114240')->all();
+$status      = $colissimoApi->get('9V01144114240')->status();
+$id          = $colissimoApi->get('9V01144114240')->id();
+$destination = $colissimoApi->get('9V01144114240')->destination();
 var_dump($all, $status, $id, $destination);
 
 // show json
-$colissimoApi->show('9V01144112123')->all();
-$colissimoApi->show('9V01144112123')->status();
-$colissimoApi->show('9V01144112123')->id();
-$colissimoApi->show('9V01144112123')->destination();
+$colissimoApi->show('9V01144114240')->all();
+$colissimoApi->show('9V01144114240')->status();
+$colissimoApi->show('9V01144114240')->id();
+$colissimoApi->show('9V01144114240')->destination();
 
 ````
 
