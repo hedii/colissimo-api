@@ -18,6 +18,7 @@
     },
     "require": {
         "php": ">=5.6",
+        "ext-xml": "*",
         "symfony/dom-crawler": "^3.0",
         "symfony/css-selector": "^3.0"
     },
