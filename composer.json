@@ -1,34 +1,48 @@
 {
     "name": "hedii/colissimo-api",
     "minimum-stability": "stable",
-    "description": "A php API to track Colissimo (La Poste) parcels",
-    "keywords": ["colissimo", "api", "colissimoapi", "hedii"],
+    "description": "A php package to track Colissimo (La Poste) parcels",
+    "keywords": ["colissimo", "api", "colissimoapi", "hedii", "la poste", "laposte"],
     "license": "MIT",
     "homepage": "https://github.com/hedii/colissimo-api",
     "authors": [
         {
             "name": "Hedi Chaibi",
-            "email": "hedi.chaibs@gmail.com"
+            "email": "contact@hedichaibi.com"
         }
     ],
     "support": {
         "issues": "https://github.com/hedii/colissimo-api/issues",
         "source": "https://github.com/hedii/colissimo-api",
-        "email": "hedi.chaibs@gmail.com"
+        "email": "contact@hedichaibi.com"
     },
     "require": {
-        "php": ">=5.6",
+        "php": "^7.1.0",
+        "ext-curl": "*",
         "ext-xml": "*",
-        "symfony/dom-crawler": "^3.0",
-        "symfony/css-selector": "^3.0"
+        "guzzlehttp/guzzle": "^6.3",
+        "symfony/css-selector": "^3.0",
+        "symfony/dom-crawler": "^3.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "5.0.*"
+        "phpunit/phpunit": "^7.0"
     },
     "autoload": {
         "psr-4": {
-            "Hedii\\": "src/",
-            "Hedii\\ColissimoApi\\": "src/ColissimoApi"
+            "Hedii\\ColissimoApi\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Hedii\\ColissimoApi\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "optimize-autoloader": true
     }
 }

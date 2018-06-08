@@ -1,7 +1,12 @@
 [![Build Status](https://travis-ci.org/hedii/colissimo-api.svg?branch=master)](https://travis-ci.org/hedii/colissimo-api)
 
 # colissimo-api
-A php API to track Colissimo (La Poste) parcels
+A php package to track Colissimo (La Poste) parcels
+
+### Requirements
+- PHP >= 7.1
+- XML PHP Extension
+- Curl PHP Extension
 
 ### Installation
 ````bash
@@ -10,31 +15,71 @@ composer require hedii/colissimo-api
 
 ### Usage
 ````php
-<?php
-
 require 'vendor/autoload.php';
 
-// create a new instance
-$colissimoApi = new \Hedii\ColissimoApi\ColissimoApi();
+$colissimo = new \Hedii\ColissimoApi\ColissimoApi();
 
-// get data
-$all         = $colissimoApi->get('9V01144114240')->all();
-$status      = $colissimoApi->get('9V01144114240')->status();
-$id          = $colissimoApi->get('9V01144114240')->id();
-$destination = $colissimoApi->get('9V01144114240')->destination();
-var_dump($all, $status, $id, $destination);
+try {
+    $result = $colissimo->get('your_colissimo_id_here');
+} catch (\Hedii\ColissimoApi\ColissimoApiException $e) {
+    // ...
+}
+````
 
-// show json
-$colissimoApi->show('9V01144114240')->all();
-$colissimoApi->show('9V01144114240')->status();
-$colissimoApi->show('9V01144114240')->id();
-$colissimoApi->show('9V01144114240')->destination();
-
+The result is an array of chronological status:
+````
+array(5) {
+  [0] =>
+  array(3) {
+    'date' =>
+    string(10) "30/05/2018"
+    'label' =>
+    string(23) "Votre colis est livré."
+    'location' =>
+    string(18) "Centre Courrier 75"
+  }
+  [1] =>
+  array(3) {
+    'date' =>
+    string(10) "30/05/2018"
+    'label' =>
+    string(50) "Votre colis est en préparation pour la livraison."
+    'location' =>
+    string(18) "Centre Courrier 75"
+  }
+  [2] =>
+  array(3) {
+    'date' =>
+    string(10) "30/05/2018"
+    'label' =>
+    string(52) "Votre colis est arrivé sur son site de distribution"
+    'location' =>
+    string(18) "Centre Courrier 75"
+  }
+  [3] =>
+  array(3) {
+    'date' =>
+    string(10) "29/05/2018"
+    'label' =>
+    string(40) "Votre colis est en cours d'acheminement."
+    'location' =>
+    string(16) "Plateforme Colis"
+  }
+  [4] =>
+  array(3) {
+    'date' =>
+    string(10) "28/05/2018"
+    'label' =>
+    string(110) "Votre colis a été déposé après l'heure limite de dépôt. Il sera expédié dès le prochain jour ouvré."
+    'location' =>
+    string(28) "Bureau de Poste Les estables"
+  }
+}
 ````
 
 ### Run tests
 
 ````bash
-vendor/bin/phpunit tests
+composer test
 ````
 You may need to update the id in */tests/ColissimoApiTest.php* because the id is only valid for 90 days.

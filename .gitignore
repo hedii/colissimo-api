@@ -1,9 +1,4 @@
-# IntelliJ project files
+/vendor/
 .idea
-*.iml
-out
-gen
-
 .DS_Store
-/vendor
-/index.php
+composer.lock

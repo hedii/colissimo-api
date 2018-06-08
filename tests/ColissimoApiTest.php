@@ -1,234 +1,80 @@
 <?php
 
+namespace Hedii\ColissimoApi\Tests;
+
 use Hedii\ColissimoApi\ColissimoApi;
+use Hedii\ColissimoApi\ColissimoApiException;
+use PHPUnit\Framework\TestCase;
 
-class ColissimoApiTest extends PHPUnit_Framework_TestCase
+class ColissimoApiTest extends TestCase
 {
-    private $id = '9V01144116749';
+    /**
+     * A valid colissimo id.
+     *
+     * @var string
+     */
+    private $id = '8N04104266553';
 
-    private $wrongId = 'x9V01144112123';
+    /**
+     * An invalid colissimo id.
+     *
+     * @var string
+     */
+    private $invalidId = 'x9V01144112123';
 
-    public function testGetAllReturnsAnArray()
+    /**
+     * A ColissimoApi instance.
+     *
+     * @var \Hedii\ColissimoApi\ColissimoApi
+     */
+    private $colissimo;
+
+    /**
+     * This method is called before each test.
+     */
+    public function setUp(): void
     {
-        $colissimoApi = new ColissimoApi();
-        $array = $colissimoApi->get($this->id)->all();
+        parent::setUp();
 
-        $this->assertTrue(is_array($array));
+        $this->colissimo = new ColissimoApi();
     }
 
-    public function testGetAllArrayHasCorrectKeys()
+    /** @test */
+    public function it_should_fail_on_wrong_id(): void
     {
-        $colissimoApi = new ColissimoApi();
-        $array = $colissimoApi->get($this->id)->all();
+        $this->expectException(ColissimoApiException::class);
+        $this->expectExceptionMessage("Cannot find status for colissimo id `{$this->invalidId}`");
 
-        $this->assertArrayHasKey('status', $array, 'status key is missing');
-        $this->assertArrayHasKey('id', $array, 'id key is missing');
-        $this->assertArrayHasKey('destination', $array, 'destination key is missing');
+        $this->colissimo->get($this->invalidId);
     }
 
-    public function testGetAllArrayHasCorrectValues()
+    /** @test */
+    public function it_should_have_an_all_method(): void
     {
-        $colissimoApi = new ColissimoApi();
-        $array = $colissimoApi->get($this->id)->all();
+        $result = $this->colissimo->get($this->id);
 
-        $this->assertTrue(!empty($array['status']), 'status is empty');
-        $this->assertTrue(!empty($array['id']), 'id value is empty');
-        $this->assertTrue(!empty($array['destination']), 'id value is empty');
-    }
-
-    public function testGetAllArrayHasStatusArrayThatContainsCorrectKeys()
-    {
-        $colissimoApi = new ColissimoApi();
-        $array = $colissimoApi->get($this->id)->all();
-
-        $this->assertArrayHasKey('date', $array['status'][0], 'date key is missing');
-        $this->assertArrayHasKey('label', $array['status'][0], 'label key is missing');
-        $this->assertArrayHasKey('location', $array['status'][0], 'location key is missing');
-    }
-
-    public function testGetAllArrayHasStatusArrayThatContainsCorrectValues()
-    {
-        $colissimoApi = new ColissimoApi();
-        $array = $colissimoApi->get($this->id)->all();
-
-        $this->assertTrue(!empty($array['status'][0]['date']), 'status date value is empty');
-        $this->assertTrue(!empty($array['status'][0]['label']), 'status label value is empty');
-    }
-
-    public function testGetStatusReturnsAnArray()
-    {
-        $colissimoApi = new ColissimoApi();
-        $array = $colissimoApi->get($this->id)->status();
-
-        $this->assertTrue(is_array($array));
-    }
-
-    public function testGetStatusArrayHasArrayThatContainsCorrectKeys()
-    {
-        $colissimoApi = new ColissimoApi();
-        $array = $colissimoApi->get($this->id)->status();
-
-        $this->assertArrayHasKey('date', $array[0], 'date key is missing');
-        $this->assertArrayHasKey('label', $array[0], 'label key is missing');
-        $this->assertArrayHasKey('location', $array[0], 'location key is missing');
-    }
-
-    public function testGetStatusArrayHasArrayThatContainsCorrectValues()
-    {
-        $colissimoApi = new ColissimoApi();
-        $array = $colissimoApi->get($this->id)->status();
-
-        $this->assertTrue(!empty($array[0]['date']), 'date value is empty');
-        $this->assertTrue(!empty($array[0]['label']), 'label value is empty');
-    }
-
-    public function testGetIdReturnsAString()
-    {
-        $colissimoApi = new ColissimoApi();
-        $id = $colissimoApi->get($this->id)->id();
-
-        $this->assertTrue(!empty($id), 'id is empty');
-        $this->assertTrue(is_string($id), 'id is not a string');
-    }
-
-    public function testGetDestinationReturnsAString()
-    {
-        $colissimoApi = new ColissimoApi();
-        $destination = $colissimoApi->get($this->id)->destination();
-
-        $this->assertTrue(!empty($destination), 'destination is empty');
-        $this->assertTrue(is_string($destination), 'destination is not a string');
-    }
-
-    public function testShowAllReturnsValidJson()
-    {
-        $colissimoApi = new ColissimoApi();
-        $json = $colissimoApi->show($this->id)->all();
-
-        $this->assertJson($json);
-    }
-
-    public function testShowAllMatchesGetAll()
-    {
-        $colissimoApi = new ColissimoApi();
-        $get = $colissimoApi->get($this->id)->all();
-        $json = $colissimoApi->show($this->id)->all();
-
-        $this->assertJsonStringEqualsJsonString(json_encode($get), $json);
-    }
-
-    public function testShowStatusReturnsValidJson()
-    {
-        $colissimoApi = new ColissimoApi();
-        $json = $colissimoApi->show($this->id)->status();
-
-        $this->assertJson($json);
-    }
-
-    public function testShowStatusMatchesGetStatus()
-    {
-        $colissimoApi = new ColissimoApi();
-        $get = $colissimoApi->get($this->id)->status();
-        $json = $colissimoApi->show($this->id)->status();
-
-        $this->assertJsonStringEqualsJsonString(json_encode($get), $json);
-    }
-
-    public function testShowIdReturnsValidJson()
-    {
-        $colissimoApi = new ColissimoApi();
-        $json = $colissimoApi->show($this->id)->id();
-
-        $this->assertJson($json);
-    }
-
-    public function testShowIdMatchesGetId()
-    {
-        $colissimoApi = new ColissimoApi();
-        $get = $colissimoApi->get($this->id)->id();
-        $json = $colissimoApi->show($this->id)->id();
-
-        $this->assertJsonStringEqualsJsonString(json_encode($get), $json);
-    }
-
-    public function testShowDestinationReturnsValidJson()
-    {
-        $colissimoApi = new ColissimoApi();
-        $json = $colissimoApi->show($this->id)->destination();
-
-        $this->assertJson($json);
-    }
-
-    public function testShowDestinationMatchesGetDestination()
-    {
-        $colissimoApi = new ColissimoApi();
-        $get = $colissimoApi->get($this->id)->destination();
-        $json = $colissimoApi->show($this->id)->destination();
-
-        $this->assertJsonStringEqualsJsonString(json_encode($get), $json);
-    }
-
-    public function testGetAllWithInvalidIdReturnsFalse()
-    {
-        $colissimoApi = new ColissimoApi();
-        $result = $colissimoApi->get($this->wrongId)->destination();
-
-        $this->assertEquals(false, $result);
-    }
-
-    public function testGetStatusWithInvalidIdReturnsFalse()
-    {
-        $colissimoApi = new ColissimoApi();
-        $result = $colissimoApi->get($this->wrongId)->status();
-
-        $this->assertEquals(false, $result);
-    }
-
-    public function testGetIdWithInvalidIdReturnsFalse()
-    {
-        $colissimoApi = new ColissimoApi();
-        $result = $colissimoApi->get($this->wrongId)->id();
-
-        $this->assertEquals(false, $result);
-    }
-
-    public function testGetDestinationWithInvalidIdReturnsFalse()
-    {
-        $colissimoApi = new ColissimoApi();
-        $result = $colissimoApi->get($this->wrongId)->destination();
-
-        $this->assertEquals(false, $result);
-    }
-
-    public function testShowAllWithInvalidIdReturnsErrorMessage()
-    {
-        $this->expectOutputString(json_encode('Invalid Colissimo id provided'));
-
-        $colissimoApi = new ColissimoApi();
-        $colissimoApi->show($this->wrongId)->all();
-    }
-
-    public function testShowStatusWithInvalidIdReturnsErrorMessage()
-    {
-        $this->expectOutputString(json_encode('Invalid Colissimo id provided'));
-
-        $colissimoApi = new ColissimoApi();
-        $colissimoApi->show($this->wrongId)->status();
-    }
-
-    public function testShowIdWithInvalidIdReturnsErrorMessage()
-    {
-        $this->expectOutputString(json_encode('Invalid Colissimo id provided'));
-
-        $colissimoApi = new ColissimoApi();
-        $colissimoApi->show($this->wrongId)->id();
-    }
-
-    public function testShowDestinationWithInvalidIdReturnsErrorMessage()
-    {
-        $this->expectOutputString(json_encode('Invalid Colissimo id provided'));
-
-        $colissimoApi = new ColissimoApi();
-        $colissimoApi->show($this->wrongId)->destination();
+        $this->assertSame([
+            [
+                'date' => '30/05/2018',
+                'label' => 'Votre colis est livré.',
+                'location' => 'Centre Courrier 75'
+            ], [
+                'date' => '30/05/2018',
+                'label' => 'Votre colis est en préparation pour la livraison.',
+                'location' => 'Centre Courrier 75'
+            ], [
+                'date' => '30/05/2018',
+                'label' => 'Votre colis est arrivé sur son site de distribution',
+                'location' => 'Centre Courrier 75'
+            ], [
+                'date' => '29/05/2018',
+                'label' => 'Votre colis est en cours d\'acheminement.',
+                'location' => 'Plateforme Colis'
+            ], [
+                'date' => '28/05/2018',
+                'label' => 'Votre colis a été déposé après l\'heure limite de dépôt. Il sera expédié dès le prochain jour ouvré.',
+                'location' => 'Bureau de Poste Les estables'
+            ]
+        ], $result);
     }
 }
