@@ -19,10 +19,8 @@
     "require": {
         "php": "^7.1.0",
         "ext-curl": "*",
-        "ext-xml": "*",
-        "guzzlehttp/guzzle": "^6.3",
-        "symfony/css-selector": "^3.0",
-        "symfony/dom-crawler": "^3.0"
+        "ext-json": "*",
+        "guzzlehttp/guzzle": "^6.3"
     },
     "require-dev": {
         "phpunit/phpunit": "^7.0"

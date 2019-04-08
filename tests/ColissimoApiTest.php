@@ -13,7 +13,7 @@ class ColissimoApiTest extends TestCase
      *
      * @var string
      */
-    private $id = '8N04104266553';
+    private $id = '6H00291144100';
 
     /**
      * An invalid colissimo id.
@@ -43,7 +43,7 @@ class ColissimoApiTest extends TestCase
     public function it_should_fail_on_wrong_id(): void
     {
         $this->expectException(ColissimoApiException::class);
-        $this->expectExceptionMessage("Cannot find status for colissimo id `{$this->invalidId}`");
+        $this->expectExceptionMessage('Bad Request');
 
         $this->colissimo->get($this->invalidId);
     }
@@ -53,28 +53,9 @@ class ColissimoApiTest extends TestCase
     {
         $result = $this->colissimo->get($this->id);
 
-        $this->assertSame([
-            [
-                'date' => '30/05/2018',
-                'label' => 'Votre colis est livré.',
-                'location' => 'Centre Courrier 75'
-            ], [
-                'date' => '30/05/2018',
-                'label' => 'Votre colis est en préparation pour la livraison.',
-                'location' => 'Centre Courrier 75'
-            ], [
-                'date' => '30/05/2018',
-                'label' => 'Votre colis est arrivé sur son site de distribution',
-                'location' => 'Centre Courrier 75'
-            ], [
-                'date' => '29/05/2018',
-                'label' => 'Votre colis est en cours d\'acheminement.',
-                'location' => 'Plateforme Colis'
-            ], [
-                'date' => '28/05/2018',
-                'label' => 'Votre colis a été déposé après l\'heure limite de dépôt. Il sera expédié dès le prochain jour ouvré.',
-                'location' => 'Bureau de Poste Les estables'
-            ]
-        ], $result);
+        $this->assertArrayHasKey('lang', $result);
+        $this->assertArrayHasKey('scope', $result);
+        $this->assertArrayHasKey('shipment', $result);
+        $this->assertArrayHasKey('timeline', $result['shipment']);
     }
 }
