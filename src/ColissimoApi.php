@@ -10,6 +10,7 @@ use GuzzleHttp\Exception\RequestException;
 
 class ColissimoApi
 {
+    private const BASE_URL_API = "https://www.laposte.fr";
     /**
      * The http client instance.
      *
@@ -47,8 +48,8 @@ class ColissimoApi
                 'query' => ['lang' => 'fr_FR'],
                 'headers' => [
                     'Accept' => 'application/json',
-                    'referer' => "https://www.laposte.fr/outils/suivre-vos-envois?code={$id}",
-                    'Origin' => 'https://www.laposte.fr',
+                    'referer' => self::BASE_URL_API . /outils/suivre-vos-envois?code={$id}",
+                    'Origin' => self::BASE_URL_API
                     'Authorization' => "Bearer {$this->getToken($id)}"
                 ]
             ]);
@@ -85,7 +86,7 @@ class ColissimoApi
      */
     private function getToken(string $id): string
     {
-        $response = $this->client->get("https://www.laposte.fr/outils/suivre-vos-envois?code={$id}");
+        $response = $this->client->get(self::BASE_URL_API . "/outils/suivre-vos-envois?code={$id}");
 
         return SetCookie::fromString($response->getHeader('Set-Cookie')[0])->getValue();
     }
