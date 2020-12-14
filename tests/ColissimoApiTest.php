@@ -13,7 +13,7 @@ class ColissimoApiTest extends TestCase
      *
      * @var string
      */
-    private $id = '6H00291144100';
+    private $id = '9L27129283299';
 
     /**
      * An invalid colissimo id.
