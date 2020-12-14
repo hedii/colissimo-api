@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/hedii/colissimo-api.svg?branch=master)](https://travis-ci.org/hedii/colissimo-api)
+[![Build Status](https://github.com/hedii/colissimo-api/workflows/Build/badge.svg)](https://github.com/hedii/colissimo-api/actions)
 
 # colissimo-api
 A php package to track Colissimo (La Poste) parcels
