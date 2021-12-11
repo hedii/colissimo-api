@@ -8,33 +8,15 @@ use PHPUnit\Framework\TestCase;
 
 class ColissimoApiTest extends TestCase
 {
-    /**
-     * A valid colissimo id.
-     *
-     * @var string
-     */
-    private $id = '9L27129283299';
+    private string $invalidId = 'x9V01144112123';
 
-    /**
-     * An invalid colissimo id.
-     *
-     * @var string
-     */
-    private $invalidId = 'x9V01144112123';
+    private ColissimoApi $colissimo;
 
-    /**
-     * A ColissimoApi instance.
-     *
-     * @var \Hedii\ColissimoApi\ColissimoApi
-     */
-    private $colissimo;
-
-    /**
-     * This method is called before each test.
-     */
     public function setUp(): void
     {
         parent::setUp();
+
+        $this->id = getenv('COLISSIMO_ID');
 
         $this->colissimo = new ColissimoApi();
     }

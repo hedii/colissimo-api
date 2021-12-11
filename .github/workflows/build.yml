@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-versions: [ '7.3', '7.4', '8.0' ]
+        php-versions: [ '8.0', '8.1' ]
     name: Testing on PHP ${{ matrix.php-versions }}
     steps:
       - name: Checkout
@@ -19,4 +19,6 @@ jobs:
       - name: Install dependencies
         run: composer install --quiet --no-ansi --no-interaction --no-scripts --no-progress
       - name: Run tests
+        env:
+          COLISSIMO_ID: ${{ secrets.COLISSIMO_ID }}
         run: composer test

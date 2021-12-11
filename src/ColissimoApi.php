@@ -2,42 +2,28 @@
 
 namespace Hedii\ColissimoApi;
 
-use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\SetCookie;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\RequestException;
+use Throwable;
 
 class ColissimoApi
 {
-    /**
-     * The http client instance.
-     *
-     * @var \GuzzleHttp\Client
-     */
-    private $client;
+    private Client $client;
 
-    /**
-     * ColissimoApi constructor.
-     *
-     * @param int $connectionTimeout
-     * @param int $timeout
-     * @param bool $verify
-     */
     public function __construct(int $connectionTimeout = 10, int $timeout = 30, bool $verify = false)
     {
         $this->client = new Client([
             'connect_timeout' => $connectionTimeout,
             'timeout' => $timeout,
-            'verify' => $verify
+            'verify' => $verify,
         ]);
     }
 
     /**
      * Get the colissimo status.
      *
-     * @param string $id
-     * @return array
      * @throws \Hedii\ColissimoApi\ColissimoApiException
      */
     public function get(string $id): array
@@ -49,11 +35,11 @@ class ColissimoApi
                     'Accept' => 'application/json',
                     'referer' => "https://www.laposte.fr/outils/suivre-vos-envois?code={$id}",
                     'Origin' => 'https://www.laposte.fr',
-                    'Authorization' => "Bearer {$this->getToken($id)}"
-                ]
+                    'Authorization' => "Bearer {$this->getToken($id)}",
+                ],
             ]);
 
-            return json_decode($response->getBody()->getContents(), true);
+            return json_decode($response->getBody()->getContents(), associative: true);
         } catch (ClientException $exception) {
             throw new ColissimoApiException(
                 $exception->getResponse()->getReasonPhrase(),
@@ -72,7 +58,7 @@ class ColissimoApi
                         : $exception->getMessage()
                 );
             }
-        } catch (Exception $exception) {
+        } catch (Throwable $exception) {
             throw new ColissimoApiException($exception->getMessage(), 1, $exception);
         }
     }
@@ -80,8 +66,7 @@ class ColissimoApi
     /**
      * Get the JWT token.
      *
-     * @param string $id
-     * @return string
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     private function getToken(string $id): string
     {

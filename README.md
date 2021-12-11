@@ -4,7 +4,7 @@
 A php package to track Colissimo (La Poste) parcels
 
 ### Requirements
-- PHP 7.3, 7.4 or 8.0
+- PHP >=8.0
 - Curl PHP Extension
 - Json PHP Extension
 
@@ -251,9 +251,14 @@ array(4) {
 }
 ````
 
-### Run tests
+### Testing
+
+Update the id in `phpunit.xml` file and run:
 
 ````bash
 composer test
 ````
-You may need to update the id in */tests/ColissimoApiTest.php* because the id is only valid for 90 days.
+
+## License
+
+colissimo-api is released under the MIT Licence. See the bundled [LICENSE](https://github.com/hedii/colissimo-api/blob/master/LICENSE.md) file for details.
